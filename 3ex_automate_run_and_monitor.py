@@ -1,0 +1,18 @@
+import boto3
+ec2 = boto3.resource('ec2')
+
+instances = ec2.create_instances(
+    ImageId="ami-076309742d466ad69",
+    MinCount=1,
+    MaxCount=1,
+    InstanceType="t2.micro",
+    KeyName="desktop-win-keypair",
+
+    NetworkInterfaces=[
+            {
+            'AssociatePublicIpAddress': True,
+            'DeviceIndex': 0,
+            'SubnetId' : "subnet-086b4620def7441b6"
+            }
+        ]
+)
