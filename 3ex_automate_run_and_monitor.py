@@ -17,8 +17,8 @@ create_vpc = ec2.create_vpc(
     ]
 )
 
-my_vpc = create_vpc['Vpc']
-print(my_vpc)
+my_vpc = create_vpc
+print(type(my_vpc))
 
 """
 instances = ec2.create_instances(
