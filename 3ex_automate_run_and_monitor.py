@@ -17,7 +17,7 @@ response = ec2.create_vpc(
     ]
 )
 
-/*
+"""
 instances = ec2.create_instances(
     ImageId="ami-076309742d466ad69",
     MinCount=1,
@@ -33,4 +33,4 @@ instances = ec2.create_instances(
             }
         ]
 )
-*/
+"""
