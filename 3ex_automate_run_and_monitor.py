@@ -34,9 +34,9 @@ my_vpcs = ec2_client.describe_vpcs(
 
 #my_vpc = create_vpc
 #print(my_vpc.VpcId)
-print(my_vps)
+print(my_vpcs)
 
-for vpc in my_vps['Vpcs']:
+for vpc in my_vpcs['Vpcs']:
     print(vpc['VpcId'])
 
 """
