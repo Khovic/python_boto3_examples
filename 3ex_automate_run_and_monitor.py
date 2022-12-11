@@ -33,7 +33,7 @@ def get_vpc_id():
     ) 
     return my_vpcs
 
-my_vpcs = get_vpc_id()
+my_vpcs = get_vpc_id()['Vpcs']
 #my_vpc = create_vpc
 #print(my_vpc.VpcId)
 print(my_vpcs)
