@@ -58,8 +58,6 @@ my_subnet = ec2_client.create_subnet(
             ]
         },
     ],
-    AvailabilityZone='string',
-    AvailabilityZoneId='string',
     CidrBlock='10.0.1.0/28',
     VpcId=vpc_id,
 
