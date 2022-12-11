@@ -44,7 +44,7 @@ if(len(my_vpcs)==0):
 
 vpc_id = ""
 
-time.sleep(10)
+time.sleep(15)
 
 for vpc in my_vpcs:
     print(vpc['VpcId'])
