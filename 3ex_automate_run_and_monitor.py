@@ -44,7 +44,7 @@ if(len(my_vpcs)==0):
 
 vpc_id = ""
 
-time.sleep(5)
+time.sleep(10)
 
 for vpc in my_vpcs:
     print(vpc['VpcId'])
@@ -70,7 +70,7 @@ my_subnet = ec2_client.create_subnet(
 print(my_subnet['Subnet']['SubnetId'])
 
 
-instances = ec2.create_instances(
+instances = ec2_client.create_instances(
     ImageId="ami-076309742d466ad69",
     MinCount=1,
     MaxCount=1,
