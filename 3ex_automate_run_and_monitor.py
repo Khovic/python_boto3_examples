@@ -33,13 +33,13 @@ def get_vpc_id():
     ) 
     return my_vpcs['Vpcs']
 
+my_vpcs = get_vpc_id()
+#my_vpc = create_vpc
+#print(my_vpc.VpcId)
 
 if(len(my_vpcs)==0):
   create_vpc()
 
-my_vpcs = get_vpc_id()
-#my_vpc = create_vpc
-#print(my_vpc.VpcId)
 
 for vpc in my_vpcs:
     print(vpc['VpcId'])
