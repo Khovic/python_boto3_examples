@@ -36,7 +36,6 @@ def get_vpc_id():
 my_vpcs = get_vpc_id()
 #my_vpc = create_vpc
 #print(my_vpc.VpcId)
-print(my_vpcs)
 
 if(len(my_vpcs)==0):
   create_vpc()
@@ -44,7 +43,6 @@ if(len(my_vpcs)==0):
 my_vpcs = get_vpc_id()
 #my_vpc = create_vpc
 #print(my_vpc.VpcId)
-print(my_vpcs)
 
 for vpc in my_vpcs:
     print(vpc['VpcId'])
