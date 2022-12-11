@@ -40,9 +40,32 @@ my_vpcs = get_vpc_id()
 if(len(my_vpcs)==0):
   create_vpc()
 
+vpc_id = ""
 
 for vpc in my_vpcs:
     print(vpc['VpcId'])
+    vpc_id = vpc['VpcId']
+
+my_subnet = client.create_subnet(
+    TagSpecifications=[
+        {
+            'ResourceType': 'subnet',
+            'Tags': [
+                {
+                    'Key': 'tag:Name',
+                    'Value': 'My-Subnet'
+                },
+            ]
+        },
+    ],
+    AvailabilityZone='string',
+    AvailabilityZoneId='string',
+    CidrBlock='10.0.1.0/28',
+    VpcId=vpc_id,
+
+)    
+
+print(my_subnet)
 
 """
 instances = ec2.create_instances(
