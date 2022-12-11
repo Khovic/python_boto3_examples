@@ -31,7 +31,7 @@ def get_vpc_id():
         ],
         MaxResults=123
     ) 
-    return my_vpc['Vpcs']['VpcId']
+    return my_vpcs['Vpcs']
 
 my_vpcs = get_vpc_id()
 #my_vpc = create_vpc
@@ -40,7 +40,9 @@ my_vpcs = get_vpc_id()
 if(len(my_vpcs)==0):
   create_vpc()
 
-print(my_vpcs)
+
+for vpc in my_vpcs:
+    print(vpc['VpcId'])
 
 """
 instances = ec2.create_instances(
