@@ -31,12 +31,12 @@ def get_vpc_id():
         ],
         MaxResults=123
     ) 
-    return my_vpcs
+    return my_vpcs['Vpcs']
 
 my_vpcs = get_vpc_id()
 #my_vpc = create_vpc
 #print(my_vpc.VpcId)
-print(my_vpcs['Vpcs'])
+print(my_vpcs)
 
 for vpc in my_vpcs['Vpcs']:
     print(vpc['VpcId'])
