@@ -4,17 +4,6 @@ ec2 = boto3.resource('ec2')
 response = ec2.create_vpc(
     CidrBlock='10.0.1.0/24',
     AmazonProvidedIpv6CidrBlock=False,
-    TagSpecifications=[
-        {
-            'ResourceType': 'launch-template',
-            'Tags': [
-                {
-                    'Key': 'Name',
-                    'Value': 'My-VPC'
-                },
-            ]
-        },
-    ]
 )
 
 instances = ec2.create_instances(
