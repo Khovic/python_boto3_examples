@@ -63,7 +63,7 @@ my_subnet = ec2_client.create_subnet(
 
 )    
 
-print(my_subnet)
+print(my_subnet['Subnet']['SubnetId'])
 
 """
 instances = ec2.create_instances(
