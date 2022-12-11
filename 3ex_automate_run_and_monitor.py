@@ -17,7 +17,7 @@ create_vpc = ec2.create_vpc(
     ]
 )
 
-my_vpc = create_vpc
+my_vpc = create_vpc['Vpc']
 print(my_vpc)
 
 """
