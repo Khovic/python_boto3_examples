@@ -46,7 +46,7 @@ for vpc in my_vpcs:
     print(vpc['VpcId'])
     vpc_id = vpc['VpcId']
 
-my_subnet = client.create_subnet(
+my_subnet = ec2_client.create_subnet(
     TagSpecifications=[
         {
             'ResourceType': 'subnet',
