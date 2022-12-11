@@ -20,7 +20,7 @@ create_vpc = ec2_resource.create_vpc(
 )
 """
 
-described_vpcs = ec2_client.describe_vpcs(
+my_vpcs = ec2_client.describe_vpcs(
     Filters=[
         {
             'Name': 'tag:Name',
@@ -34,7 +34,10 @@ described_vpcs = ec2_client.describe_vpcs(
 
 #my_vpc = create_vpc
 #print(my_vpc.VpcId)
-print(described_vpcs)
+print(my_vps)
+
+for vpc in my_vps['Vpcs']:
+    print(vpc['VpcId'])
 
 """
 instances = ec2.create_instances(
