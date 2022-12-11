@@ -38,6 +38,7 @@ my_vpcs = get_vpc_id()
 #print(my_vpc.VpcId)
 
 if(len(my_vpcs)==0):
+  print("no-vpc")
   create_vpc()
 
 vpc_id = ""
