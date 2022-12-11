@@ -1,7 +1,7 @@
 import boto3
 ec2 = boto3.resource('ec2')
 
-response = client.create_vpc(
+response = ec2.create_vpc(
     CidrBlock='10.0.1.0/24',
     AmazonProvidedIpv6CidrBlock=False,
     TagSpecifications=[
