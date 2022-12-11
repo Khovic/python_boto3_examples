@@ -18,4 +18,4 @@ instances = ec2_resource.create_instances(
             }
     ]
 )
-print(instances[0])
+print(instances[0].instance_id)
