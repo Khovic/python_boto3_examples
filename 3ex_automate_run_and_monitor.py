@@ -1,4 +1,5 @@
 import boto3
+import time
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
 
@@ -42,6 +43,8 @@ if(len(my_vpcs)==0):
   create_vpc()
 
 vpc_id = ""
+
+time.sleep(5)
 
 for vpc in my_vpcs:
     print(vpc['VpcId'])
