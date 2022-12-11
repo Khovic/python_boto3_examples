@@ -1,7 +1,7 @@
 import boto3
-ec2 = boto3.resource('ec2')
+ec2_resource = boto3.resource('ec2')
 
-create_vpc = ec2.create_vpc(
+create_vpc = ec2_resource.create_vpc(
     CidrBlock='10.0.1.0/24',
     AmazonProvidedIpv6CidrBlock=False,
     TagSpecifications=[
@@ -17,8 +17,21 @@ create_vpc = ec2.create_vpc(
     ]
 )
 
+described_vpcs = ec2_resource.describe_vpcs(
+    Filters=[
+        {
+            'Name': 'Name',
+            'Values': [
+                'My-VPC',
+            ]
+        },
+    ],
+    MaxResults=123
+)
+
 my_vpc = create_vpc
 print(my_vpc.VpcId)
+print(described_vpcs)
 
 """
 instances = ec2.create_instances(
