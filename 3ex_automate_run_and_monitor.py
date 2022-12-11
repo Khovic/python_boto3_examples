@@ -21,7 +21,14 @@ create_vpc = ec2_resource.create_vpc(
 """
 
 described_vpcs = ec2_client.describe_vpcs(
-
+    Filters=[
+        {
+            'Name': 'tag:name',
+            'Values': [
+                'My-VPC',
+            ]
+        },
+    ],
     MaxResults=123
 )
 
