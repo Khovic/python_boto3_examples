@@ -22,9 +22,7 @@ described_vpcs = ec2_client.describe_vpcs(
     Filters=[
         {
             'Name': 'Name',
-            'Values': [
-                'My-VPC',
-            ]
+            'Values': 'My-VPC',
         },
     ],
     MaxResults=123
