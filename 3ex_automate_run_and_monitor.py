@@ -25,8 +25,8 @@ described_vpcs = ec2_client.describe_vpcs(
     MaxResults=123
 )
 
-my_vpc = create_vpc
-print(my_vpc.VpcId)
+#my_vpc = create_vpc
+#print(my_vpc.VpcId)
 print(described_vpcs)
 
 """
