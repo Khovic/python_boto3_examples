@@ -1,6 +1,21 @@
 import boto3
 ec2 = boto3.resource('ec2')
 
+response = client.create_vpc(
+    CidrBlock='10.0.1.0/24',
+    AmazonProvidedIpv6CidrBlock=False,
+    TagSpecifications=[
+        {
+            'Tags': [
+                {
+                    'Key': 'Name',
+                    'Value': 'My-VPC'
+                },
+            ]
+        },
+    ]
+)
+
 instances = ec2.create_instances(
     ImageId="ami-076309742d466ad69",
     MinCount=1,
