@@ -2,36 +2,38 @@ import boto3
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
 
-"""
-create_vpc = ec2_resource.create_vpc(
-    CidrBlock='10.0.1.0/24',
-    AmazonProvidedIpv6CidrBlock=False,
-    TagSpecifications=[
-        {
-            'ResourceType': 'vpc',
-            'Tags': [
-                {
-                    'Key': 'Name',
-                    'Value': 'My-VPC'
-                },
-            ]
-        },
-    ]
-)
-"""
+def create_vpc():
+    create_vpc = ec2_resource.create_vpc(
+        CidrBlock='10.0.1.0/24',
+        AmazonProvidedIpv6CidrBlock=False,
+        TagSpecifications=[
+            {
+                'ResourceType': 'vpc',
+                'Tags': [
+                    {
+                        'Key': 'Name',
+                        'Value': 'My-VPC'
+                    },
+                ]
+            },
+        ]
+    )
 
-my_vpcs = ec2_client.describe_vpcs(
-    Filters=[
-        {
-            'Name': 'tag:Name',
-            'Values': [
-                'My-VPC',
-            ]
-        },
-    ],
-    MaxResults=123
-)
+def get_vpc_id():
+    my_vpcs = ec2_client.describe_vpcs(
+        Filters=[
+            {
+                'Name': 'tag:Name',
+                'Values': [
+                    'My-VPC',
+                ]
+            },
+        ],
+        MaxResults=123
+    ) 
+    return my_vpcs
 
+my_vpcs = get_vpc_id()
 #my_vpc = create_vpc
 #print(my_vpc.VpcId)
 print(my_vpcs)
