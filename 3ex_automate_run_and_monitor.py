@@ -6,7 +6,7 @@ response = ec2.create_vpc(
     AmazonProvidedIpv6CidrBlock=False,
     TagSpecifications=[
         {
-            'ResourceType': 'internet-gateway',
+            'ResourceType': 'launch-template',
             'Tags': [
                 {
                     'Key': 'Name',
