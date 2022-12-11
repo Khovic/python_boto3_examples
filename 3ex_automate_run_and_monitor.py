@@ -70,7 +70,7 @@ my_subnet = ec2_client.create_subnet(
 print(my_subnet['Subnet']['SubnetId'])
 
 
-instances = ec2_client.create_instances(
+instances = ec2_resource.create_instances(
     ImageId="ami-076309742d466ad69",
     MinCount=1,
     MaxCount=1,
