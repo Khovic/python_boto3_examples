@@ -69,20 +69,19 @@ my_subnet = ec2_client.create_subnet(
 
 print(my_subnet['Subnet']['SubnetId'])
 
-"""
+
 instances = ec2.create_instances(
     ImageId="ami-076309742d466ad69",
     MinCount=1,
     MaxCount=1,
     InstanceType="t2.micro",
-    KeyName="desktop-win-keypair",
+    KeyName="poopy-oracle",
 
     NetworkInterfaces=[
             {
             'AssociatePublicIpAddress': True,
             'DeviceIndex': 0,
-            'SubnetId' : "subnet-086b4620def7441b6"
+            'SubnetId' : my_subnet['Subnet']['SubnetId']
             }
-        ]
+    ]
 )
-"""
