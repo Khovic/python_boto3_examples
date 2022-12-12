@@ -21,6 +21,6 @@ instances = ec2_resource.create_instances(
 )
 print(instances[0].instance_id)
 
-while instances[0].state["Code"] != 16:
-    print(instances[0].instance_id)
+
+print(instances[0].state["Code"])
 
