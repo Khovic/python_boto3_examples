@@ -27,7 +27,6 @@ described_instance = ec2_client.describe_instances(
         instances[0].instance_id,
     ],
     DryRun=False,
-    MaxResults=123,
 )
 
 print(described_instance["Reservations"][0]["Instances"][0]["Monitoring"]["State"])
