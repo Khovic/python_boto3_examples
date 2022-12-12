@@ -29,5 +29,6 @@ described_instance = ec2_client.describe_instances(
     DryRun=False,
 )
 
-print(described_instance["Reservations"][0]["Instances"][0]["Monitoring"]["State"])
-
+while described_instance["Reservations"][0]["Instances"][0]["Monitoring"]["State"] != "Running":
+    print(described_instance["Reservations"][0]["Instances"][0]["Monitoring"]["State"])
+    time.sleep(5)
