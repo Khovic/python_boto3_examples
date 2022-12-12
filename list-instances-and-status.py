@@ -9,7 +9,7 @@ def check_status():
 described_instance = ec2_client.describe_instances()
 reservations = described_instance["Reservations"]
 
-for reservation in reservation:
+for reservation in reservations:
     for instance in reservation["Instances"]:
         print(instance["InstanceId"])
         print(instance["State"]["Name"])
