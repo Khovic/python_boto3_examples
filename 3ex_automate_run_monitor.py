@@ -1,8 +1,8 @@
 import boto3
+import time
 
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
-
 
 instances = ec2_resource.create_instances(
     ImageId="ami-076309742d466ad69",
@@ -21,6 +21,7 @@ instances = ec2_resource.create_instances(
 )
 print(instances[0].instance_id)
 
-
-print(instances[0].state["Code"])
+while instances[0].state["Code"] != 16:
+    time.sleep(5)
+    print(instances[0].state["Code"])
 
