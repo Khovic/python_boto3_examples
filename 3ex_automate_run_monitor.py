@@ -20,7 +20,10 @@ instances = ec2_resource.create_instances(
     ]
 )
 
+
 def check_status(instance_id):
+    print(instance_id)
+    
     status_pass = False
     while not status_pass:
         described_instance = ec2_client.describe_instances(
