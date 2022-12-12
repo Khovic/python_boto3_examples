@@ -22,7 +22,7 @@ instances = ec2_resource.create_instances(
 
 print(instances[0].instance_id)
 
-described_instance = client.describe_instances(
+described_instance = ec2_client.describe_instances(
     InstanceIds=[
         instances[0].instance_id,
     ],
