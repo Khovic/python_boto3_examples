@@ -6,7 +6,7 @@ ec2_client = boto3.client('ec2')
 described_instance = ec2_client.describe_instances()
 reservations = described_instance["Reservations"]
 
-described_instance_statutes = client.describe_instance_status(
+described_instance_statutes = ec2_client.describe_instance_status(
 )
 
 def check_status():
