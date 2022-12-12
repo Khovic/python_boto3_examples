@@ -20,12 +20,13 @@ instances = ec2_resource.create_instances(
     ]
 )
 
-while True:
-    described_instance = ec2_client.describe_instances(
+described_instance = ec2_client.describe_instances(
     InstanceIds=[
         instances[0].instance_id,
     ],
     DryRun=False,
     )
+
+while described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] != "Running":
     print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
     time.sleep(5)
