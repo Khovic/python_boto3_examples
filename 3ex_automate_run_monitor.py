@@ -3,6 +3,7 @@ import boto3
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
 
+
 instances = ec2_resource.create_instances(
     ImageId="ami-076309742d466ad69",
     MinCount=1,
@@ -19,3 +20,7 @@ instances = ec2_resource.create_instances(
     ]
 )
 print(instances[0].instance_id)
+
+while instances[0].instance_id.state["Code"] != 16:
+    print(instances[0].instance_id)
+
