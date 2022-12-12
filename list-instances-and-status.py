@@ -9,8 +9,7 @@ reservations = described_instance["Reservations"]
 def check_status():
     for reservation in reservations:
         for instance in reservation["Instances"]:
-            print(instance["InstanceId"])
-            print(instance["State"]["Name"])
+            print(f'instance {instance["InstanceId"]} is {instance["State"]["Name"]}')
 
 
 check_status()
