@@ -6,10 +6,12 @@ ec2_client = boto3.client('ec2')
 described_instance = ec2_client.describe_instances()
 reservations = described_instance["Reservations"]
 
+described_instance_statutes = client.describe_instance_status(
+)
+
 def check_status():
-    for reservation in reservations:
-        for instance in reservation["Instances"]:
-            print(f'instance {instance["InstanceId"]} is {instance["State"]["Name"]}')
+    for status in described_instance_statutes['InstanceStatuses']:
+        print(f'instance {status["InstanceId"]} is {status["InstanceState"]["Name"]}')
 
 
 check_status()
