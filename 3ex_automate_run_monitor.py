@@ -28,5 +28,5 @@ described_instance = ec2_client.describe_instances(
     )
 
 while described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] != "Running":
-    print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
+    print(instances[0].instance_id + " is " + described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
     time.sleep(5)
