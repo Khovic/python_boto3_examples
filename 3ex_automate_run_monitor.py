@@ -19,9 +19,16 @@ instances = ec2_resource.create_instances(
             }
     ]
 )
+
 print(instances[0].instance_id)
 
-while instances[0].state["Code"] != 16:
-    time.sleep(5)
-    print(instances[0].state["Code"])
+described_instance = client.describe_instances(
+    InstanceIds=[
+        instances[0].instance_id,
+    ],
+    DryRun=False,
+    MaxResults=123,
+)
+
+print(described_instance["Reservations"][0]["Instances"][0]["Monitoring"]["State"])
 
