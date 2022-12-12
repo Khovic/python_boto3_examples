@@ -27,5 +27,5 @@ while True:
     ],
     DryRun=False,
     )
-    print(described_instance["Reservations"][0]["Instances"][0]["Monitoring"]["State"])
+    print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
     time.sleep(5)
