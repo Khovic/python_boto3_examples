@@ -20,19 +20,17 @@ instances = ec2_resource.create_instances(
     ]
 )
 
-status_pass = False
-
-while not status_pass:
-    described_instance = ec2_client.describe_instances(
-    InstanceIds=[
-        instances[0].instance_id,
-    ],
-    DryRun=False,
-    )
-    print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
-    time.sleep(5)
-
-    if described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] == "running":
+def check_status(instance_id):
+    status_pass = False
+    while not status_pass:
+        described_instance = ec2_client.describe_instances(
+        InstanceIds=[instance_id,],
+        DryRun=False,)
+        
+        time.sleep(5)
         print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
-        status_pass = True
 
+        if described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] == "running":
+            status_pass = True
+
+check_status(instances[0].instance_id)
