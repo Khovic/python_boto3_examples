@@ -32,6 +32,7 @@ while not status_pass:
     print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
     time.sleep(5)
 
-    if described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] == "Running":
+    if described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] == "running":
+        print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
         status_pass = True
 
