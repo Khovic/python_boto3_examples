@@ -11,7 +11,7 @@ described_instance_statutes = ec2_client.describe_instance_status(
 
 def check_status():
     for status in described_instance_statutes['InstanceStatuses']:
-        print(f'instance {status["InstanceId"]} is {status["InstanceState"]["Name"]} and status state is {status["SystemStatus"]["Status"]}')
+        print(f'instance {status["InstanceId"]} is {status["InstanceState"]["Name"]} and system status is {status["SystemStatus"]["Status"]}')
 
 
 check_status()
