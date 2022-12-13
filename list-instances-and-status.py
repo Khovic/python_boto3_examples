@@ -10,9 +10,6 @@ described_instance_statutes = ec2_client.describe_instance_status(
 )
 
 described_volume = ec2_client.describe_volumes(
-   VolumeIds=[
-        'string',
-    ],
 )
 
 def check_status():
