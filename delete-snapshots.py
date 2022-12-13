@@ -5,5 +5,5 @@ ec2_client = boto3.client('ec2')
 
 described_snapshots = ec2_client.describe_snapshots()
 
-for snapshot in described_snapshots{'Snapshots'}
+for snapshot in described_snapshots['Snapshots']:
     print(snapshot['SnapshotId'])
