@@ -20,7 +20,7 @@ def delete_snapshots(tag_name, tag_value):
 
     #loops through sorted_snapshots skipping first 2 items and deletes old snapshots
     for snapshot in sorted_snapshots[2:]:
-        #ec2_client.delete_snapshot(SnapshotId=snapshot['SnapshotId'],)
+        ec2_client.delete_snapshot(SnapshotId=snapshot['SnapshotId'],)
         print(f"snapshot {snapshot['SnapshotId']} dated {snapshot['StartTime']} has been deleted")
 
 delete_snapshots('created-by', 'python-script')
