@@ -1,7 +1,7 @@
 import boto3
 
-ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
+
 def delete_snapshots(tag_name, tag_value):
     described_snapshots = ec2_client.describe_snapshots(
             Filters=[
