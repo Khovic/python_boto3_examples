@@ -19,6 +19,6 @@ def delete_snapshots(tag_name, tag_value):
 
     for snapshot in sorted_snapshots[2:]:
         #ec2_client.delete_snapshot(SnapshotId=snapshot['SnapshotId'],)
-        print(f"snapshot {snapshot['SnapshotId']} has been deleted")
+        print(f"snapshot {snapshot['StartTime']} has been deleted")
 
 delete_snapshots('created-by', 'python-script')
