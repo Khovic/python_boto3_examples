@@ -6,7 +6,7 @@ ec2_client = boto3.client('ec2')
 described_snapshots = ec2_client.describe_snapshots(
         Filters=[
         {
-            'Name': 'Tag:created-by',
+            'Name': 'tag:created-by',
             'Values': [
                 'python-script',
             ]
