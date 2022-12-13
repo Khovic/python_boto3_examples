@@ -6,6 +6,7 @@ import time
 
 def print_poo():
     print('poopoo')
-    
+
 schedule.every(5).minutes.do(print_poo)
-schedule.run_pending()
+while True:
+    schedule.run_pending()
