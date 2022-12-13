@@ -12,7 +12,7 @@ described_instance_statutes = ec2_client.describe_instance_status(
 described_volume = ec2_client.describe_volumes(
 )
 
-def create_snapshots():
+def create_snapshots(tag_key, tag_value):
     for status in described_instance_statutes['InstanceStatuses']:
         #the follwing prints the volumes attached to each instance
         described_volumes = ec2_client.describe_volumes(
@@ -25,16 +25,16 @@ def create_snapshots():
                 print(f"volume {attachment['VolumeId']} attached to instance {status['InstanceId']}")
 
                 volume = ec2_resource.Volume(attachment['VolumeId'])
+                #tags the snapshot with tag_key:tag_value
                 snapshot = volume.create_snapshot(
                     TagSpecifications=[
                         {
                             'ResourceType': 'snapshot',
-                            'Tags': [{'Key': 'created-by', 'Value': 'python-script'},]
+                            'Tags': [{'Key': tag_key, 'Value': tag_value},]
                         },
                     ],
                 )
-
                 print(snapshot.snapshot_id)
 
 
-create_snapshots()
+create_snapshots('created-by', 'python-script')
