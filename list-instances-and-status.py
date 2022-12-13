@@ -9,7 +9,7 @@ reservations = described_instance["Reservations"]
 described_instance_statutes = ec2_client.describe_instance_status(
 )
 
-described_volume = client.describe_volumes(
+described_volume = ec2_client.describe_volumes(
    VolumeIds=[
         'string',
     ],
