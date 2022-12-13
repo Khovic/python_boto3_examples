@@ -15,4 +15,5 @@ described_snapshots = ec2_client.describe_snapshots(
 )
 
 for snapshot in described_snapshots['Snapshots']:
-    print(snapshot['SnapshotId'])
+    client.delete_snapshot(SnapshotId=snapshot['SnapshotId'],)
+    print(f"snapshot {snapshot['SnapshotId']} has been deleted")
