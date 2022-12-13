@@ -36,4 +36,4 @@ def create_snapshots(tag_key, tag_value):
                 )
                 print(snapshot.snapshot_id)
 
-create_snapshots('created-by', 'python-script')
+#create_snapshots('created-by', 'python-script')
