@@ -25,12 +25,7 @@ def create_snapshots():
                 print(f"volume {attachment['VolumeId']} attached to instance {status['InstanceId']}")
 
                 volume = ec2_resource.Volume(attachment['VolumeId'])
-                snapshot = volume.create_snapshot(
-                    TagSpecifications=[
-                                    {
-                        'ResourceType': 'snapshot'
-                    }, ],
-                )
+                snapshot = volume.create_snapshot()
 
                 print(snapshot.snapshot_id)
 
