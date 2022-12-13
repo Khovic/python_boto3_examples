@@ -28,7 +28,7 @@ def create_snapshots():
                 snapshot = volume.create_snapshot(
                     TagSpecifications=[
                         {
-                            'ResourceType': 'snapshot'
+                            'ResourceType': 'snapshot',
                             'Tags': [{'Key': 'tag:created-by', 'Value': 'python-script'},]
                         },
                     ],
