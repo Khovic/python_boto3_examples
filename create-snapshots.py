@@ -29,7 +29,7 @@ def create_snapshots():
                     TagSpecifications=[
                         {
                             'ResourceType': 'snapshot'
-                            'Tags' : [
+                            'Tags': [
                                 {
                                     'Key': 'tag:created-by'
                                     'Value': 'python-script'
