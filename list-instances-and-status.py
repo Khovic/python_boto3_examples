@@ -19,7 +19,7 @@ def check_status():
     for status in described_instance_statutes['InstanceStatuses']:
         print(f'instance {status["InstanceId"]} is {status["InstanceState"]["Name"]} and system status is {status["SystemStatus"]["Status"]}')
 
-        described_volumes = client.describe_volumes(
+        described_volumes = ec2_client.describe_volumes(
         Filters=[{'Name': 'attachment.instance-id', 'Values': [status["InstanceId"]]}]
         )
 
