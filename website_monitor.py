@@ -20,7 +20,7 @@ def restart_app():
     app_container_id = stdout.readlines()
     print(app_container_id[0])
     stdin, stdout, stderr = ssh.exec_command(f'docker restart {app_container_id}')
-    #print(stdout.readlines())
+    print(stdout.readlines())
     ssh.close()
 
 #used to send email notifying of app failure
