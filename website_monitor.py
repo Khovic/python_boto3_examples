@@ -37,7 +37,7 @@ def send_email():
 try:
     response = requests.get('http://129.159.151.65:8080')
     if response.status_code == 200:
-        print("Success! Application runs as intended")
+        print("Success! Application is running")
     else:
         print('nginx responding but there is a configuration issue')
 except:
