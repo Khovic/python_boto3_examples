@@ -17,13 +17,6 @@ def send_email ():
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         smtp.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, email_message)
 
-
-    if response.status_code == 200:
-        print("Success")
-    else: 
-        print("Possible error with app, sending email notification")
-        send_email()
-
 try:
     response = requests.get('http://129.159.151.65:8080')
     if response.status_code == 200:
