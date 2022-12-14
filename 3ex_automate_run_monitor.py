@@ -35,8 +35,8 @@ def check_status(instance_id):
         print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
 
         if described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] == "running":
-            described_instance_statuses = ec2_client.describe_instance_status(InstanceIds=[instance_id],)
-            for status in described_instance_statuses:
+            described_instance_status = ec2_client.describe_instance_status(InstanceIds=[instance_id],)
+            for status in described_instance_status['InstanceStatuses']:
                     time.sleep(5)
                     if status['SystemStatus']['Status'] == 'ok':
                         print('Instance status and System status are OK!')
