@@ -45,6 +45,3 @@ except:
     restart_app()
 
 
-
-#print(response.status_code)
-
