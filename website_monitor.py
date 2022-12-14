@@ -5,5 +5,5 @@ response = requests.get('http://129.159.151.65:8080')
 
 print(response)
 
-if "200" in response:
+if response.ok == "200":
     print("Success")
