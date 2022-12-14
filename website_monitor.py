@@ -3,7 +3,7 @@ import smtplib
 import os
 
 website_address = "129.159.151.65:8080"
-email_message = "Subjet: DAMN NIGGA WEBSITE BE DOWN BRO \n pls fix"
+email_message = "Subjet: DAMN NIGGA WEBSITE BE DOWN BRO\npls fix"
 
 EMAIL_ADDRESS  = os.environ.get('EMAIL_ADDRESS')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
