@@ -12,6 +12,8 @@ EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 #used to ssh to the server and restart the app docker container
 def restart_app():
+    print('Restarting the container')
+
     ssh = paramiko.SSHClient()
     #to accept the "add missing host prompt"
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -37,8 +39,7 @@ try:
     if response.status_code == 200:
         print("Success")
 except:
-    print("Possible error with app, sending email notification")
-   # send_email()
+    send_email()
     restart_app()
 
 
