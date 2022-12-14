@@ -1,5 +1,6 @@
 import boto3
 import time
+import paramiko
 
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
@@ -34,6 +35,11 @@ def check_status(instance_id):
         print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
 
         if described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] == "running":
-            status_pass = True
+            described_instance_statuses = ec2_client.describe_instance_status(InstanceIds=[instance_id],)
+            for status in described_instance_statuses:
+                    time.sleep(5)
+                    if status['SystemStatus']['Status'] == 'ok':
+                        print('Instance status and System status are OK!')
+                        status_pass = True
 
 check_status(instances[0].instance_id)
