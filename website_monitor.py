@@ -10,15 +10,19 @@ email_message = "Subject: DAMN NIGGA WEBSITE BE DOWN BRO\npls fix"
 EMAIL_ADDRESS  = os.environ.get('EMAIL_ADDRESS')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
+#used to ssh to the server and restart the app docker container
 def restart_app():
     ssh = paramiko.SSHClient()
     #to accept the "add missing host prompt"
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(hostname='129.159.151.65', username='ubuntu',key_filename='/home/ubuntu/.ssh/id_rsa')
-    stdin, stdout, stderr = ssh.exec_command('docker ps')
+    stdin, stdout, stderr = ssh.exec_command("docker ps -a | grep nginx | awk '{ print $1 }'")
+    app_container_id = stdout.readlines()
+    stdin, stdout, stderr = ssh.exec_command(f'docker restart {app_container_id}')
     print(stdout.readlines())
+    ssh.close()
 
-
+#used to send email notifying of app failure
 def send_email():
     print("Possible error with app, sending email notification")
 
