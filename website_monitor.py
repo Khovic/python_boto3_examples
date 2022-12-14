@@ -19,7 +19,7 @@ def restart_app():
     stdin, stdout, stderr = ssh.exec_command("docker ps -a | grep nginx | awk '{ print $1 }'")
     app_container_id = stdout.readlines()
     print(app_container_id[0])
-    #stdin, stdout, stderr = ssh.exec_command(f'docker restart {app_container_id}')
+    stdin, stdout, stderr = ssh.exec_command(f'docker restart {app_container_id}')
     #print(stdout.readlines())
     ssh.close()
 
