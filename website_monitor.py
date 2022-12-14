@@ -11,7 +11,7 @@ EMAIL_ADDRESS  = os.environ.get('EMAIL_ADDRESS')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 def restart_app():
-    ssh = paramiko.sshclient()
+    ssh = paramiko.SSHClient()
     #to accept the "add missing host prompt"
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(hostname='129.159.151.65', username='ubuntu',key_filename='/home/ubuntu/.ssh/id_rsa')
