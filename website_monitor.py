@@ -1,6 +1,8 @@
 import requests
 import smtplib
 import os
+import paramiko
+
 
 website_address = "129.159.151.65:8080"
 email_message = "Subject: DAMN NIGGA WEBSITE BE DOWN BRO\npls fix"
@@ -8,7 +10,16 @@ email_message = "Subject: DAMN NIGGA WEBSITE BE DOWN BRO\npls fix"
 EMAIL_ADDRESS  = os.environ.get('EMAIL_ADDRESS')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
-def send_email ():
+def restart_app():
+    ssh = paramiko.sshclient()
+    #to accept the "add missing host prompt"
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(hostname='129.159.151.65', username='ubuntu',key_filename='/home/ubuntu/.ssh/id_rsa')
+    stdin, stdout, stderr = ssh.exec_command('docker ps')
+    print(stdout.readlines())
+
+
+def send_email():
     print("Possible error with app, sending email notification")
 
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
