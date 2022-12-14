@@ -35,6 +35,7 @@ try:
 except:
     print("Possible error with app, sending email notification")
     send_email()
+    restart_app()
 
 
 
