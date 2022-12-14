@@ -3,7 +3,12 @@ import smtplib
 import os
 
 website_address = "129.159.151.65:8080"
-response = requests.get('http://129.159.151.65:8080')
+try:
+    response = requests.get('http://129.159.151.65:8080')
+except:
+    send_email()
+
+
 email_message = "Subjet: DAMN NIGGA WEBSITE BE DOWN BRO \n pls fix"
 
 EMAIL_ADDRESS  = os.environ.get('EMAIL_ADDRESS')
