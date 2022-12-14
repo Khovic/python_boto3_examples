@@ -15,7 +15,7 @@ def send_email ():
         smtp.starttls()
         smtp.ehlo()
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        smtp.sendmail(EMAIL_PASSWORD, EMAIL_PASSWORD, email_message)
+        smtp.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, email_message)
 
 
     if response.status_code == 200:
