@@ -54,24 +54,27 @@ open port TCP 8080
 """
 
 def start_app(instance_id):
-    instance_ip = '3.71.72.83'
+    instance_ip = '18.195.214.165'
 
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
     
+    print('updating yum..')
     stdin, stdout, stderr = ssh.exec_command('sudo yum update -y')
     print(stdout.readlines())
+    print('installing docker..')
     stdin, stdout, stderr = ssh.exec_command('sudo yum -y install docker')
     print(stdout.readlines())
     stdin, stdout, stderr = ssh.exec_command('sudo usermod -aG docker ec2-user')
     print(stdout.readlines())
     stdin, stdout, stderr = ssh.exec_command('sudo systemctl start docker')
     print(stdout.readlines())
+    print('running nginx..')
     stdin, stdout, stderr = ssh.exec_command('docker run -d -p 8080:80 nginx')
     print(stdout.readlines())
-    print(f'application on Instance {instance_id} successfully started')
 
+    print(f'Application on instance {instance_id} successfully started')
 
 start_app('i-0ffa448c0b2d1f4b0')
