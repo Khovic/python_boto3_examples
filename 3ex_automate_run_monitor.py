@@ -45,7 +45,7 @@ def check_status(instance_id):
 
 def start_app(instance_id):
     #to get the instance public ip
-    instance = ec2_client.Instance(instance_id)
+    instance = ec2_resource.Instance(instance_id)
     print(instance.public_ip_address)
     instance_ip = instance.public_ip_address
 
