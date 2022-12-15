@@ -1,9 +1,15 @@
 import boto3
 import time
 import paramiko
+import requests
+import smtplib
+import os
 
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
+
+EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
 instances = ec2_resource.create_instances(
     ImageId="ami-076309742d466ad69",
@@ -13,38 +19,38 @@ instances = ec2_resource.create_instances(
     KeyName="poopy-oracle",
 
     NetworkInterfaces=[
-            {
+        {
             'AssociatePublicIpAddress': True,
             'DeviceIndex': 0,
-            'SubnetId' : 'subnet-073db04a00010f052'
-            }
+            'SubnetId': 'subnet-073db04a00010f052'
+        }
     ]
 )
 
 
 def check_status(instance_id):
     print(instance_id)
-    
+
     status_pass = False
     while not status_pass:
         described_instance = ec2_client.describe_instances(
-        InstanceIds=[instance_id,],
-        DryRun=False,)
-        
+            InstanceIds=[instance_id, ],
+            DryRun=False, )
+
         time.sleep(5)
         print(described_instance["Reservations"][0]["Instances"][0]["State"]["Name"])
 
         if described_instance["Reservations"][0]["Instances"][0]["State"]["Name"] == "running":
-            described_instance_status = ec2_client.describe_instance_status(InstanceIds=[instance_id],)
+            described_instance_status = ec2_client.describe_instance_status(InstanceIds=[instance_id], )
             for status in described_instance_status['InstanceStatuses']:
-                    time.sleep(5)
-                    if status['SystemStatus']['Status'] == 'ok':
-                        print('Instance status and System status are OK!')
-                        status_pass = True
+                time.sleep(5)
+                if status['SystemStatus']['Status'] == 'ok':
+                    print('Instance status and System status are OK!')
+                    status_pass = True
 
 
 def start_app(instance_id):
-    #to get the instance public ip
+    # to get the instance public ip
     instance = ec2_resource.Instance(instance_id)
     print(instance.public_ip_address)
     instance_ip = instance.public_ip_address
@@ -52,8 +58,8 @@ def start_app(instance_id):
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
-    
+    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename='/home/ubuntu/.ssh/id_rsa')
+
     print('updating yum..')
     stdin, stdout, stderr = ssh.exec_command('sudo yum update -y')
     print(stdout.readlines())
@@ -70,31 +76,78 @@ def start_app(instance_id):
 
     print(f'Application on instance {instance_id} successfully started')
 
+    return instance_ip
+
+
 def open_port(instance_id):
     instance = ec2_resource.Instance(instance_id)
     instance_sg = instance.security_groups[0]["GroupId"]
 
     ec2_client.authorize_security_group_ingress(
-    GroupId = instance_sg ,
-    IpPermissions=[
-        {
-            'FromPort': 8080,
-            'ToPort': 8080,
-            'IpProtocol': 'tcp',
-            'IpRanges': [
-                {
-                    'CidrIp': '0.0.0.0/0'
-                }
-            ]
-        }
-    ]
-)
+        GroupId=instance_sg,
+        IpPermissions=[
+            {
+                'FromPort': 8080,
+                'ToPort': 8080,
+                'IpProtocol': 'tcp',
+                'IpRanges': [
+                    {
+                        'CidrIp': '0.0.0.0/0'
+                    }
+                ]
+            }
+        ]
+    )
+
+
+# used to ssh to the server and restart the app docker container
+def restart_app(instance_ip):
+    print('Restarting the container')
+
+    ssh = paramiko.SSHClient()
+    # to accept the "add missing host prompt"
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename='/home/ubuntu/.ssh/id_rsa')
+    stdin, stdout, stderr = ssh.exec_command("docker ps -a | grep nginx | awk '{ print $1 }'")
+    app_container_id = stdout.readlines()
+    print(app_container_id[0])
+    ssh.exec_command('docker restart ' + app_container_id[0])
+    ssh.close()
+
+
+# used to send email notifying of app failure
+def send_email():
+    print("Possible error with app, sending email notification")
+    email_message = "Subject: DAMN NIGGA WEBSITE BE DOWN BRO\npls fix"
+
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        smtp.sendmail(EMAIL_ADDRESS, EMAIL_ADDRESS, email_message)
+
+
+def app_monitor(instance_ip):
+    try:
+        response = requests.get(f'http://{instance_ip}:8080')
+        if response.status_code == 200:
+            print("Success! Application is running")
+        else:
+            print('nginx responding but there is a configuration issue')
+    except:
+        send_email()
+        restart_app(instance_ip)
+
 
 check_status(instances[0].instance_id)
 
-start_app(instances[0].instance_id)
+instance_ip = start_app(instances[0].instance_id)
 
 try:
     open_port(instances[0].instance_id)
 except:
     print("Port is already open")
+
+print("running monitor...")
+time.sleep(5)
+app_monitor(instance_ip)
