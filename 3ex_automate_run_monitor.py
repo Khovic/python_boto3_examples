@@ -54,7 +54,7 @@ open port TCP 8080
 
 def start_app(instance_id):
     #to get the instance public ip
-    response = ec2.describe_instances(
+    response = ec2_client.describe_instances(
         Filters=[
             {
                 'Name': 'instance-id',
