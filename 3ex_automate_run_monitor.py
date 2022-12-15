@@ -94,4 +94,7 @@ check_status(instances[0].instance_id)
 
 start_app(instances[0].instance_id)
 
-open_port(instances[0].instance_id)
+try:
+    open_port(instances[0].instance_id)
+except:
+    print("Port is already open")
