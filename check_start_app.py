@@ -81,7 +81,7 @@ start_app('i-0ffa448c0b2d1f4b0')"""
 
 def open_port(instance_id):
     instance = ec2_resource.Instance(instance_id)
-    instance_sg = instance.securitygroups[0]["GroupId"]
+    instance_sg = instance.security_groups[0]["GroupId"]
 
     ec2.authorize_security_group_ingress(
     GroupId = instance_sg ,
