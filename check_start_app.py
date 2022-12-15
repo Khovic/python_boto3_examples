@@ -84,7 +84,7 @@ def open_port(instance_id):
     instance_sg = instance.securitygroups[0]["GroupId"]
 
     ec2.authorize_security_group_ingress(
-    GroupId= instance_sg ,
+    GroupId = instance_sg ,
     IpPermissions=[
         {
             'FromPort': 8080,
