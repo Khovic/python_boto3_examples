@@ -61,15 +61,15 @@ def start_app(instance_id):
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
     
-    ssh.exec_command('sudo yum update -y')
-    ssh.exec_command('sudo yum -y install docker')
-    ssh.exec_command('sudo usermod -aG docker ec2-user')
-    ssh.exec_command('sudo systemctl start docker')
+    stdin, stdout, stderr = ssh.exec_command('sudo yum update -y')
+    stdin, stdout, stderr = ssh.exec_command('sudo yum -y install docker')
+    stdin, stdout, stderr = ssh.exec_command('sudo usermod -aG docker ec2-user')
+    stdin, stdout, stderr = ssh.exec_command('sudo systemctl start docker')
     ssh.close()
 
     ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
-    ssh.exec_command('sudo systemctl start docker')
-    ssh.exec_command('docker run -d -p 8080:80 nginx')
+    stdin, stdout, stderr = ssh.exec_command('sudo systemctl start docker')
+    stdin, stdout, stderr = ssh.exec_command('docker run -d -p 8080:80 nginx')
     print(f'application on Instance {instance_id} successfully started')
 
 
