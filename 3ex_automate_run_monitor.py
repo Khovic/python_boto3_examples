@@ -53,7 +53,17 @@ open port TCP 8080
 """
 
 def start_app(instance_id):
-    instance_ip = instances[0].public_ip_address
+    #to get the instance public ip
+    response = ec2.describe_instances(
+        Filters=[
+            {
+                'Name': 'instance-id',
+                'Values': ['your-instance-id-here']
+            }
+        ]
+    )
+    instance = response['Reservations'][0]['Instances'][0]
+    instance_ip = instance['PublicIpAddress']
 
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
