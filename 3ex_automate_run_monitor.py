@@ -45,16 +45,9 @@ def check_status(instance_id):
 
 def start_app(instance_id):
     #to get the instance public ip
-    response = ec2_client.describe_instances(
-        Filters=[
-            {
-                'Name': 'instance-id',
-                'Values': [instance_id]
-            }
-        ]
-    )
-    instance = response['Reservations'][0]['Instances'][0]
-    instance_ip = instance['PublicIpAddress']
+    instance = ec2_client.Instance(instance_id)
+    print(instance.public_ip_address)
+    instance_ip = instance.public_ip_address
 
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
@@ -79,6 +72,5 @@ def start_app(instance_id):
 
 
 check_status(instances[0].instance_id)
-print(instances[0].public_ip_address)
 
 start_app(instances[0].instance_id)
