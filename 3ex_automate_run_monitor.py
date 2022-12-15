@@ -78,5 +78,6 @@ def start_app(instance_id):
 
 
 check_status(instances[0].instance_id)
+print(instances[0].public_ip_address)
 
 start_app(instances[0].instance_id)
