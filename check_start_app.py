@@ -68,7 +68,7 @@ def start_app(instance_id):
 
     ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
     ssh.exec_command('docker run -d -p 8080:80 nginx')
-    print(f'Instance {instance_id} successfully started')
+    print(f'application on Instance {instance_id} successfully started')
 
 
 start_app('i-0ffa448c0b2d1f4b0')
