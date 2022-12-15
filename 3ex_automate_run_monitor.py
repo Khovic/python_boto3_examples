@@ -72,3 +72,4 @@ def start_app(instance_id):
 
 check_status(instances[0].instance_id)
 
+start_app(instances[0].instance_id)
