@@ -54,7 +54,7 @@ open port TCP 8080
 """
 
 def start_app(instance_id):
-    instance_ip = '18.156.199.110'
+    instance_ip = '3.71.72.83'
 
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
