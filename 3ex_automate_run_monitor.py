@@ -65,7 +65,7 @@ def start_app(instance_id):
     stdin, stdout, stderr = ssh.exec_command('sudo systemctl start docker')
     print(stdout.readlines())
     print('running nginx..')
-    stdin, stdout, stderr = ssh.exec_command('docker run -d -p 8080:80 nginx')
+    stdin, stdout, stderr = ssh.exec_command('sudo docker run -d -p 8080:80 nginx')
     print(stdout.readlines())
 
     print(f'Application on instance {instance_id} successfully started')
