@@ -52,7 +52,7 @@ docker run -d -p 8080:80 nginx
 ------------
 open port TCP 8080
 """
-
+"""
 def start_app(instance_id):
     instance_ip = '18.195.214.165'
 
@@ -77,4 +77,24 @@ def start_app(instance_id):
 
     print(f'Application on instance {instance_id} successfully started')
 
-start_app('i-0ffa448c0b2d1f4b0')
+start_app('i-0ffa448c0b2d1f4b0')"""
+
+def open_port(instance_id):
+    instance = ec2_resource.Instance(instance_id)
+    instance_sg = instance.securitygroups[0]["GroupId"]
+
+    ec2.authorize_security_group_ingress(
+    GroupId= instance_sg ,
+    IpPermissions=[
+        {
+            'FromPort': 8080,
+            'ToPort': 8080,
+            'IpProtocol': 'tcp',
+            'IpRanges': [
+                {
+                    'CidrIp': '0.0.0.0/0'
+                }
+            ]
+        }
+    ]
+)
