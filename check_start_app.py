@@ -98,3 +98,5 @@ def open_port(instance_id):
         }
     ]
 )
+
+open_port("i-03a3a03fbc2e37825")
