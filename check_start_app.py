@@ -58,8 +58,8 @@ def start_app(instance_id):
 
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
-    ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
     
     ssh.exec_command('sudo yum update -y')
     ssh.exec_command('sudo yum -y install docker')
