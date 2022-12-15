@@ -74,7 +74,7 @@ def start_app(instance_id):
     stdin, stdout, stderr = ssh.exec_command('docker run -d -p 8080:80 nginx')
     print(stdout.readlines())
 
-    print(f'application on Instance {instance_id} successfully started')
+    print(f'Application on instance {instance_id} successfully started')
 
 
 check_status(instances[0].instance_id)
