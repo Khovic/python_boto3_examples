@@ -83,7 +83,7 @@ def open_port(instance_id):
     instance = ec2_resource.Instance(instance_id)
     instance_sg = instance.security_groups[0]["GroupId"]
 
-    ec2_resource.authorize_security_group_ingress(
+    ec2_client.authorize_security_group_ingress(
     GroupId = instance_sg ,
     IpPermissions=[
         {
