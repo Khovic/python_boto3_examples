@@ -66,7 +66,7 @@ def start_app(instance_id):
     ssh.exec_command('sudo systemctl start docker')
     ssh.close()
 
-    ssh.connect(hostname=instance_ip, username='ec2_user',key_filename='/home/ubuntu/.ssh/id_rsa')
+    ssh.connect(hostname=instance_ip, username='ec2-user',key_filename='/home/ubuntu/.ssh/id_rsa')
     ssh.exec_command('docker run -d -p 8080:80 nginx')
     print(f'Instance {instance_id} successfully started')
 
