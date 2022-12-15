@@ -42,15 +42,6 @@ def check_status(instance_id):
                         print('Instance status and System status are OK!')
                         status_pass = True
 
-"""
-sudo yum update
-sudo systemctl start docker
-sudo usermod -aG docker ec2-user
-restart shell
-docker run -d -p 8080:80 nginx
-------------
-open port TCP 8080
-"""
 
 def start_app(instance_id):
     #to get the instance public ip
