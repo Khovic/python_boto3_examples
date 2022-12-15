@@ -4,6 +4,7 @@ import paramiko
 import requests
 import smtplib
 import os
+import schedule
 
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
@@ -128,6 +129,7 @@ def send_email():
 
 
 def app_monitor(instance_ip):
+    print("Monitoring application...")
     try:
         response = requests.get(f'http://{instance_ip}:8080')
         if response.status_code == 200:
@@ -149,5 +151,8 @@ except:
     print("Port is already open")
 
 print("running monitor...")
-time.sleep(5)
-app_monitor(instance_ip)
+
+schedule.every(1).minutes.do(app_monitor, instance_ip)
+
+while True:
+    schedule.run_pending()
