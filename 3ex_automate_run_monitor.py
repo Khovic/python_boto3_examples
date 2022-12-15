@@ -58,7 +58,7 @@ def start_app(instance_id):
         Filters=[
             {
                 'Name': 'instance-id',
-                'Values': ['your-instance-id-here']
+                'Values': [instance_id]
             }
         ]
     )
