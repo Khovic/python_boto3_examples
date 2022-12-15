@@ -70,7 +70,28 @@ def start_app(instance_id):
 
     print(f'Application on instance {instance_id} successfully started')
 
+def open_port(instance_id):
+    instance = ec2_resource.Instance(instance_id)
+    instance_sg = instance.security_groups[0]["GroupId"]
+
+    ec2_client.authorize_security_group_ingress(
+    GroupId = instance_sg ,
+    IpPermissions=[
+        {
+            'FromPort': 8080,
+            'ToPort': 8080,
+            'IpProtocol': 'tcp',
+            'IpRanges': [
+                {
+                    'CidrIp': '0.0.0.0/0'
+                }
+            ]
+        }
+    ]
+)
 
 check_status(instances[0].instance_id)
 
 start_app(instances[0].instance_id)
+
+open_port(instances[0].instance_id)
