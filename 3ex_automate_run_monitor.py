@@ -12,12 +12,14 @@ ec2_client = boto3.client('ec2')
 EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
+app_failures = 0
+
 instances = ec2_resource.create_instances(
     ImageId="ami-076309742d466ad69",
     MinCount=1,
     MaxCount=1,
     InstanceType="t2.micro",
-    KeyName="poopy-oracle",
+    KeyName="desktop-win-keypair",
 
     NetworkInterfaces=[
         {
@@ -59,7 +61,7 @@ def start_app(instance_id):
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename='/home/ubuntu/.ssh/id_rsa')
+    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename=r"C:\Users\Khovic\.ssh\id_rsa")
 
     print('updating yum..')
     stdin, stdout, stderr = ssh.exec_command('sudo yum update -y')
@@ -108,7 +110,7 @@ def restart_app(instance_ip):
     ssh = paramiko.SSHClient()
     # to accept the "add missing host prompt"
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename='/home/ubuntu/.ssh/id_rsa')
+    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename=r'C:\Users\Khovic\.ssh\id_rsa')
     stdin, stdout, stderr = ssh.exec_command("docker ps -a | grep nginx | awk '{ print $1 }'")
     app_container_id = stdout.readlines()
     print(app_container_id[0])
@@ -129,16 +131,25 @@ def send_email():
 
 
 def app_monitor(instance_ip):
+    global app_failures
     print("Monitoring application...")
+    print("Failures: " + str(app_failures))
     try:
         response = requests.get(f'http://{instance_ip}:8080')
         if response.status_code == 200:
             print("Success! Application is running")
+            app_failures = 0
         else:
             print('nginx responding but there is a configuration issue')
     except:
-        send_email()
+        #send_email()
+        print("application failed")
+        app_failures = app_failures + 1
+
+    if app_failures > 4:
         restart_app(instance_ip)
+
+    return
 
 
 check_status(instances[0].instance_id)
@@ -152,7 +163,7 @@ except:
 
 print("running monitor...")
 
-schedule.every(1).minutes.do(app_monitor, instance_ip)
+schedule.every(6).seconds.do(app_monitor, instance_ip)
 
 while True:
     schedule.run_pending()
