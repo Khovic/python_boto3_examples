@@ -21,7 +21,7 @@ instances = ec2_resource.create_instances(
     MinCount=1,
     MaxCount=1,
     InstanceType="t2.micro",
-    KeyName="desktop-win-keypair",
+    KeyName="poopy-oracle",
 
 
 
