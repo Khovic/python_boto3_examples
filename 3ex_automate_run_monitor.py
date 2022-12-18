@@ -114,7 +114,7 @@ def restart_app(instance_ip):
     ssh = paramiko.SSHClient()
     # to accept the "add missing host prompt"
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename=r'C:\Users\Khovic\.ssh\id_rsa')
+    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename=ssh_key_file)
     stdin, stdout, stderr = ssh.exec_command("docker ps -a | grep nginx | awk '{ print $1 }'")
     app_container_id = stdout.readlines()
     print(app_container_id[0])
