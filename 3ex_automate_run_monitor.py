@@ -12,6 +12,8 @@ ec2_client = boto3.client('ec2')
 EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
+ssh_key_file = r"/home/ubuntu/.ssh/id_rsa"
+
 app_failures = 0
 
 instances = ec2_resource.create_instances(
@@ -20,6 +22,8 @@ instances = ec2_resource.create_instances(
     MaxCount=1,
     InstanceType="t2.micro",
     KeyName="desktop-win-keypair",
+
+
 
     NetworkInterfaces=[
         {
@@ -61,7 +65,7 @@ def start_app(instance_id):
     print(f'Application starting on instance {instance_id}.....')
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename=r"C:\Users\Khovic\.ssh\id_rsa")
+    ssh.connect(hostname=instance_ip, username='ec2-user', key_filename=ssh_key_file)
 
     print('updating yum..')
     stdin, stdout, stderr = ssh.exec_command('sudo yum update -y')
