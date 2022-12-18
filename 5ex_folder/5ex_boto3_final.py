@@ -16,6 +16,6 @@ for repo in described_repos['repositories']:
 
         for image in sorted_images[:3]:
             try:
-               print(f'image {image["repositoryName"]}:{image["imageTags"]} pushed at {image["imagePushedAt"]}')
+               print(f'image {image["repositoryName"]}:{image["imageTags"][0]} pushed at {image["imagePushedAt"]}')
             except:
                 print(f'image {image["repositoryName"]} has a tag error')
