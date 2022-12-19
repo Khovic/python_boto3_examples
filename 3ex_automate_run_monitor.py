@@ -1,3 +1,11 @@
+"""
+This script automates creating an instance, installing docker and running nginx container on the instance,
+aswell open the required ports to allow public access to our ngnix app. 
+afterwards it will constantly monitor to make sure the container is running and in case there is no response
+it will automatically send an email notification to EMAIL_ADDRESS and ssh to the instance and attempt to restart 
+the container.
+"""
+
 import boto3
 import time
 import paramiko
@@ -125,7 +133,7 @@ def restart_app(instance_ip):
 # used to send email notifying of app failure
 def send_email():
     print("Possible error with app, sending email notification")
-    email_message = "Subject: DAMN NIGGA WEBSITE BE DOWN BRO\npls fix"
+    email_message = "Subject: WEBSITE BE DOWN\n pls fix"
 
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         smtp.starttls()
