@@ -1,9 +1,9 @@
 """
 This script automates creating an instance, installing docker and running nginx container on the instance,
-aswell open the required ports to allow public access to our ngnix app. 
-afterwards it will constantly monitor to make sure the container is running and in case there is no response
-it will automatically send an email notification to EMAIL_ADDRESS and ssh to the instance and attempt to restart 
-the container.
+as well open the required ports to allow public access to our ngnix app. 
+afterwards it will constantly monitor and make sure the container is running and in case there is no response
+for 5 consecutive attempts, it will automatically send an email notification to EMAIL_ADDRESS and ssh to the instance 
+to restart the container.
 """
 
 import boto3
